@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Perspectives: Gambian Women and Girls</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Source+Sans+3:wght@300;400;600;700&display=swap" rel="stylesheet" />
+<style>
+:root {
+  --gold: #B8860B;
+  --gold-light: #D4A017;
+  --gold-pale: #F5E6C0;
+  --cream: #FAF6EF;
+  --parchment: #F0E8D5;
+  --warm-white: #FFFDF7;
+  --ink: #1A1209;
+  --ink-soft: #3D2B10;
+  --muted: #7A6248;
+  --border: #D9C89A;
+  --radius: 10px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Source Sans 3', sans-serif; background: var(--cream); color: var(--ink); min-height: 100vh; }
+
+/* HEADER */
+.site-header {
+  background: linear-gradient(135deg, #1A1209 0%, #3D2008 60%, #5C3010 100%);
+  padding: 28px 24px 22px; text-align: center; position: relative; overflow: hidden;
+}
+.site-header::before {
+  content: ''; position: absolute; inset: 0;
+  background: repeating-linear-gradient(45deg, transparent, transparent 12px, rgba(184,134,11,0.06) 12px, rgba(184,134,11,0.06) 24px);
+}
+.header-kicker { font-size: 11px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--gold-light); margin-bottom: 8px; position: relative; }
+.site-title { font-family: 'Playfair Display', serif; font-size: clamp(20px, 5vw, 34px); color: var(--gold-pale); line-height: 1.2; position: relative; }
+.site-title em { font-style: italic; color: var(--gold-light); }
+.site-subtitle { font-size: 13px; color: rgba(245,230,192,0.6); margin-top: 6px; position: relative; }
+.gold-line { width: 60px; height: 2px; background: linear-gradient(90deg, transparent, var(--gold), transparent); margin: 14px auto 0; position: relative; }
+
+/* PROMPT BANNER */
+.prompt-banner { background: var(--parchment); border-left: 4px solid var(--gold); border-bottom: 1px solid var(--border); padding: 16px 20px; cursor: pointer; }
+.prompt-label { font-size: 10px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; color: var(--gold); margin-bottom: 4px; }
+.prompt-text { font-family: 'Playfair Display', serif; font-style: italic; font-size: 15px; color: var(--ink-soft); line-height: 1.5; }
+.prompt-toggle { font-size: 11px; color: var(--muted); margin-top: 6px; }
+.prompt-full { display: none; margin-top: 10px; font-size: 14px; color: var(--ink-soft); line-height: 1.6; }
+.prompt-full.open { display: block; }
+
+/* PROGRESS */
+.progress-wrap { background: var(--parchment); border-bottom: 1px solid var(--border); padding: 10px 20px; }
+.progress-label { font-size: 11px; color: var(--muted); font-weight: 600; letter-spacing: 1px; margin-bottom: 6px; }
+.progress-bar-bg { height: 6px; background: var(--border); border-radius: 99px; }
+.progress-bar-fill { height: 6px; border-radius: 99px; background: linear-gradient(90deg, var(--gold), var(--gold-light)); transition: width 0.5s ease; }
+
+/* STEP NAV */
+.step-nav { display: flex; overflow-x: auto; background: var(--warm-white); border-bottom: 1px solid var(--border); scrollbar-width: none; }
+.step-nav::-webkit-scrollbar { display: none; }
+.step-btn { flex: 0 0 auto; padding: 14px 20px 12px; border: none; background: transparent; cursor: pointer; font-family: 'Source Sans 3', sans-serif; font-size: 12px; font-weight: 600; color: var(--muted); border-bottom: 3px solid transparent; transition: all 0.25s; white-space: nowrap; position: relative; }
+.step-btn .step-num { display: block; font-size: 9px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; opacity: 0.7; margin-bottom: 2px; }
+.step-btn.active { color: var(--ink); border-bottom-color: var(--gold); background: var(--cream); }
+.step-btn.done::after { content: '✓'; position: absolute; top: 8px; right: 8px; font-size: 9px; color: #4A7C59; }
+
+/* PANELS */
+.step-panel { display: none; padding: 24px 20px 90px; max-width: 760px; margin: 0 auto; }
+.step-panel.active { display: block; }
+
+/* STEP HERO */
+.step-hero { background: linear-gradient(135deg, #1A1209, #3D2008); border-radius: var(--radius); padding: 28px 24px; margin-bottom: 24px; position: relative; overflow: hidden; }
+.step-hero::after { content: ''; position: absolute; top: -40px; right: -40px; width: 120px; height: 120px; border-radius: 50%; background: radial-gradient(circle, rgba(184,134,11,0.2) 0%, transparent 70%); }
+.step-hero-num { font-size: 10px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--gold-light); margin-bottom: 6px; }
+.step-hero h2 { font-family: 'Playfair Display', serif; font-size: clamp(19px, 4vw, 26px); color: var(--gold-pale); margin-bottom: 8px; }
+.step-hero p { font-size: 14px; color: rgba(245,230,192,0.7); line-height: 1.5; }
+
+/* CARDS */
+.card { background: var(--warm-white); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px; margin-bottom: 16px; }
+.card-title { font-family: 'Playfair Display', serif; font-size: 17px; color: var(--ink-soft); margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
+.card-icon { font-size: 20px; }
+.card p, .card li { font-size: 14px; color: var(--ink-soft); line-height: 1.65; }
+.card ul { padding-left: 20px; margin-top: 8px; }
+.card li { margin-bottom: 6px; }
+
+/* INFO BOX */
+.info-box { background: var(--gold-pale); border: 1px solid var(--border); border-left: 4px solid var(--gold); border-radius: var(--radius); padding: 16px 18px; margin-bottom: 16px; }
+.info-box .info-label { font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); margin-bottom: 6px; }
+.info-box p { font-size: 14px; color: var(--ink-soft); line-height: 1.6; }
+
+/* TEXTAREA */
+.write-label { font-size: 13px; font-weight: 700; color: var(--ink-soft); margin-bottom: 6px; display: block; }
+textarea { width: 100%; border: 1.5px solid var(--border); border-radius: var(--radius); padding: 12px 14px; font-family: 'Source Sans 3', sans-serif; font-size: 14px; line-height: 1.6; color: var(--ink); background: var(--warm-white); resize: vertical; transition: border-color 0.2s; margin-bottom: 4px; }
+textarea:focus { outline: none; border-color: var(--gold); }
+.char-count { font-size: 11px; color: var(--muted); text-align: right; margin-bottom: 12px; }
+
+/* BUTTONS */
+.btn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 22px; border-radius: var(--radius); font-family: 'Source Sans 3', sans-serif; font-size: 14px; font-weight: 700; cursor: pointer; border: none; transition: all 0.2s; }
+.btn-primary { background: linear-gradient(135deg, var(--gold), var(--gold-light)); color: var(--ink); box-shadow: 0 2px 8px rgba(184,134,11,0.3); }
+.btn-primary:hover { transform: translateY(-1px); box-shadow: 0 4px 14px rgba(184,134,11,0.4); }
+.btn-row { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 16px; }
+
+/* TIPS GRID */
+.tips-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+@media (max-width: 500px) { .tips-grid { grid-template-columns: 1fr; } }
+.tip-card { background: var(--parchment); border: 1px solid var(--border); border-radius: var(--radius); padding: 14px; font-size: 13px; color: var(--ink-soft); line-height: 1.5; }
+.tip-card strong { display: block; color: var(--gold); margin-bottom: 4px; font-size: 12px; }
+
+/* EXAMPLE BOXES */
+.example-box { background: #EAF3EC; border: 1px solid #C1DBC6; border-left: 4px solid #4A7C59; border-radius: var(--radius); padding: 14px 16px; margin: 10px 0; }
+.example-label { font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: #4A7C59; margin-bottom: 6px; }
+.example-box p { font-size: 14px; color: #1A3B22; font-style: italic; line-height: 1.6; }
+.example-box-warn { background: #FDE8E8; border: 1px solid #F5C6C6; border-left: 4px solid #C0392B; border-radius: var(--radius); padding: 14px 16px; margin: 10px 0; }
+.example-box-warn .example-label { color: #C0392B; }
+.example-box-warn p { font-size: 14px; color: #5C1010; font-style: italic; line-height: 1.6; }
+
+/* STARTERS */
+.starter-chip { display: inline-block; background: var(--parchment); border: 1px solid var(--border); border-radius: 20px; padding: 5px 12px; font-size: 13px; color: var(--ink-soft); cursor: pointer; margin: 4px; transition: all 0.15s; }
+.starter-chip:hover { background: var(--gold-pale); border-color: var(--gold); }
+.starters-label { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+
+/* CHECKLIST */
+.checklist { list-style: none; padding: 0; }
+.checklist li { display: flex; align-items: flex-start; gap: 10px; padding: 10px 0; border-bottom: 1px solid var(--parchment); font-size: 14px; color: var(--ink-soft); }
+.checklist li:last-child { border-bottom: none; }
+.check-box { width: 20px; height: 20px; border: 2px solid var(--border); border-radius: 4px; cursor: pointer; flex-shrink: 0; margin-top: 1px; background: white; display: flex; align-items: center; justify-content: center; transition: all 0.15s; font-size: 12px; }
+.check-box.checked { background: var(--gold); border-color: var(--gold); color: white; }
+.checklist li.done-item > span:last-child { color: var(--muted); text-decoration: line-through; }
+
+/* SUCCESS BANNER */
+.success-banner { background: linear-gradient(135deg, #EAF3EC, #D0EBD5); border: 1px solid #C1DBC6; border-radius: var(--radius); padding: 18px 20px; display: none; align-items: center; gap: 14px; margin-bottom: 16px; }
+.success-banner.show { display: flex; }
+.success-icon { font-size: 28px; }
+.success-text h3 { font-family: 'Playfair Display', serif; font-size: 17px; color: #2B5E3A; }
+.success-text p { font-size: 13px; color: #3D6B4A; margin-top: 2px; }
+
+/* SECTION DIVIDER */
+.section-divider { display: flex; align-items: center; gap: 12px; margin: 20px 0; }
+.section-divider span { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); white-space: nowrap; }
+.divider-line { flex: 1; height: 1px; background: var(--border); }
+
+/* EDIT CATEGORIES */
+.edit-category { background: var(--warm-white); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 14px; overflow: hidden; }
+.edit-cat-header { display: flex; align-items: center; gap: 10px; padding: 12px 16px; background: var(--parchment); border-bottom: 1px solid var(--border); }
+.edit-cat-icon { font-size: 18px; }
+.edit-cat-title { font-family: 'Playfair Display', serif; font-size: 15px; color: var(--ink-soft); }
+.edit-cat-body { padding: 12px 16px; }
+
+/* BOTTOM NAV */
+.bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: var(--warm-white); border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; padding: 10px 20px; z-index: 100; }
+.nav-step-label { font-size: 11px; color: var(--muted); font-weight: 600; }
+.nav-step-name { font-family: 'Playfair Display', serif; font-size: 14px; color: var(--ink-soft); }
+.nav-arrows { display: flex; gap: 8px; }
+.nav-btn { width: 38px; height: 38px; border-radius: 50%; border: 1.5px solid var(--border); background: var(--warm-white); font-size: 16px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.2s; color: var(--ink-soft); }
+.nav-btn:hover:not(:disabled) { border-color: var(--gold); color: var(--gold); }
+.nav-btn:disabled { opacity: 0.3; cursor: not-allowed; }
+.nav-btn.next-main { background: var(--gold); border-color: var(--gold); color: var(--ink); font-weight: 700; }
+.nav-btn.next-main:hover:not(:disabled) { background: var(--gold-light); }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-kicker">Group Oral Project &middot; StudySync ELA &middot; 6th Grade</div>
+  <h1 class="site-title"><em>Perspectives:</em> Gambian Women and Girls</h1>
+  <p class="site-subtitle">Panel Discussion Project — Five-Step Writing Guide</p>
+  <div class="gold-line"></div>
+</header>
+
+<div class="prompt-banner" onclick="togglePrompt()">
+  <div class="prompt-label">&#128216; Your Project Prompt &mdash; Tap to Expand</div>
+  <div class="prompt-text">&ldquo;What are the most effective ways to cope when life gets hard?&rdquo;</div>
+  <div class="prompt-toggle" id="promptToggle">&#9660; See full prompt</div>
+  <div class="prompt-full" id="promptFull">
+    <p>The book <strong>Hidden Figures</strong> and the sources from the Notebook LM <em>&ldquo;Perspectives: Gambian Women and Girls&rdquo;</em> tell us about individuals who face personal difficulties and the various ways they deal with those challenges.</p>
+    <br>
+    <p>Based on these texts and your own experiences: <strong>What are some of the most effective ways to cope when life gets hard?</strong></p>
+    <br>
+    <p>Working in small groups, you will conduct <strong>panel discussions</strong> with your peers on helpful strategies for dealing with tough situations.</p>
+  </div>
+</div>
+
+<div class="progress-wrap">
+  <div class="progress-label" id="progressLabel">Step 1 of 5 &mdash; Prewrite</div>
+  <div class="progress-bar-bg"><div class="progress-bar-fill" id="progressFill" style="width:20%"></div></div>
+</div>
+
+<nav class="step-nav" id="stepNav">
+  <button class="step-btn active" data-step="0" onclick="goStep(0)"><span class="step-num">Step 1</span>&#9998; Prewrite</button>
+  <button class="step-btn" data-step="1" onclick="goStep(1)"><span class="step-num">Step 2</span>&#128203; Plan</button>
+  <button class="step-btn" data-step="2" onclick="goStep(2)"><span class="step-num">Step 3</span>&#128221; Draft</button>
+  <button class="step-btn" data-step="3" onclick="goStep(3)"><span class="step-num">Step 4</span>&#128260; Revise</button>
+  <button class="step-btn" data-step="4" onclick="goStep(4)"><span class="step-num">Step 5</span>&#9989; Edit &amp; Present</button>
+</nav>
+
+<!-- STEP 1 PREWRITE -->
+<section class="step-panel active" id="panel-0">
+  <div class="step-hero">
+    <div class="step-hero-num">Step 1 of 5</div>
+    <h2>Prewrite &mdash; Get Your Ideas Out</h2>
+    <p>Before you write anything, explore your ideas. This step is about <em>thinking freely</em> &mdash; there are no wrong answers here. Just get your thoughts on paper.</p>
+  </div>
+
+  <div class="info-box">
+    <div class="info-label">&#127919; What Is a Panel Discussion?</div>
+    <p>A <strong>panel discussion</strong> is when a small group of people sit together in front of an audience and have a focused conversation about a topic. Each person shares their ideas, listens to others, and responds respectfully. Think of it like a roundtable conversation where everyone gets to speak.</p>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="card-icon">&#128173;</span>Think About the Prompt</div>
+    <p>Read the prompt above. Now take 5 minutes and <strong>freewrite</strong> &mdash; just get your thoughts out. Don&rsquo;t worry about spelling or perfect sentences. Write everything that comes to mind.</p>
+    <div class="example-box" style="margin-top:12px;">
+      <div class="example-label">Prompt Reminder</div>
+      <p>What are the most effective ways to cope when life gets hard?</p>
+    </div>
+    <div class="starters-label" style="margin-top:14px;">Sentence Starters &mdash; Tap to add to your freewrite:</div>
+    <div>
+      <span class="starter-chip" onclick="addStarter('p1_freewrite','One time life got hard for me was when ')">One time life got hard for me...</span>
+      <span class="starter-chip" onclick="addStarter('p1_freewrite','A character from Hidden Figures who faced a challenge was ')">A character from Hidden Figures...</span>
+      <span class="starter-chip" onclick="addStarter('p1_freewrite','A Gambian woman or girl who faced difficulties was ')">A Gambian woman who faced difficulties...</span>
+      <span class="starter-chip" onclick="addStarter('p1_freewrite','One way people cope with hard times is ')">One way people cope...</span>
+      <span class="starter-chip" onclick="addStarter('p1_freewrite','I think this strategy works because ')">I think this strategy works because...</span>
+    </div>
+    <label class="write-label" style="margin-top:14px;">My Freewrite (5 minutes &mdash; write without stopping!):</label>
+    <textarea id="p1_freewrite" rows="7" placeholder="Just write anything that comes to mind &mdash; ideas, memories, things you noticed in the texts, questions you have... anything goes." oninput="updateChar(this,'cnt1')"></textarea>
+    <div class="char-count" id="cnt1">0 words</div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="card-icon">&#128218;</span>Dig Into the Texts</div>
+    <p>Look back at <em>Hidden Figures</em> and the sources from <em>&ldquo;Perspectives: Gambian Women and Girls.&rdquo;</em> Answer these questions to find ideas for your panel discussion.</p>
+    <br>
+    <label class="write-label">1. What challenge or difficulty did someone in the texts face? Describe the situation.</label>
+    <textarea id="p1_q1" rows="3" placeholder="Example: Katherine Johnson faced discrimination because she was Black and a woman working at NASA in the 1950s..." oninput="updateChar(this,'cnt1a')"></textarea>
+    <div class="char-count" id="cnt1a">0 words</div>
+    <label class="write-label">2. How did that person handle the challenge? What did they do?</label>
+    <textarea id="p1_q2" rows="3" placeholder="Example: She kept doing excellent work, stayed focused, and proved herself through her calculations..." oninput="updateChar(this,'cnt1b')"></textarea>
+    <div class="char-count" id="cnt1b">0 words</div>
+    <label class="write-label">3. Did their strategy work? Why or why not?</label>
+    <textarea id="p1_q3" rows="3" placeholder="Example: Yes, because eventually NASA recognized her skills and she became an essential part of the space program..." oninput="updateChar(this,'cnt1c')"></textarea>
+    <div class="char-count" id="cnt1c">0 words</div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="card-icon">&#128161;</span>Choose Your Group&rsquo;s Challenge Topic</div>
+    <p>Your group will focus on <strong>one type of challenge</strong> people face. Read the ideas below and think about which one connects most to the texts AND your own experience.</p>
+    <br>
+    <div class="tips-grid">
+      <div class="tip-card"><strong>Option A</strong>Being treated unfairly because of who you are (race, gender, background)</div>
+      <div class="tip-card"><strong>Option B</strong>Facing a big obstacle when chasing your goals or dreams</div>
+      <div class="tip-card"><strong>Option C</strong>Dealing with pressure from family or community expectations</div>
+      <div class="tip-card"><strong>Option D</strong>Finding strength and support when you feel alone</div>
+    </div>
+    <br>
+    <label class="write-label">My group&rsquo;s challenge topic will be: (You can also write your own!)</label>
+    <textarea id="p1_topic" rows="2" placeholder="We want to focus on..." oninput="updateChar(this,'cnt1d')"></textarea>
+    <div class="char-count" id="cnt1d">0 words</div>
+    <label class="write-label">Why did you choose this topic? How does it connect to the texts?</label>
+    <textarea id="p1_why" rows="3" placeholder="We chose this because..." oninput="updateChar(this,'cnt1e')"></textarea>
+    <div class="char-count" id="cnt1e">0 words</div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="card-icon">&#129716;</span>Reflect on Your Prewriting</div>
+    <label class="write-label">What idea or coping strategy are you most excited to talk about in your panel discussion?</label>
+    <textarea id="p1_reflect" rows="3" placeholder="I'm most excited about..." oninput="updateChar(this,'cnt1f')"></textarea>
+    <div class="char-count" id="cnt1f">0 words</div>
+  </div>
+
+  <div class="success-banner" id="success-0">
+    <div class="success-icon">&#9989;</div>
+    <div class="success-text"><h3>Prewriting Complete!</h3><p>Great thinking. Move on to Step 2 &mdash; Planning your panel discussion.</p></div>
+  </div>
+  <div class="btn-row">
+    <button class="btn btn-primary" onclick="markDone(0)">Mark Step 1 Complete &#10003;</button>
+  </div>
+</section>
+
+<!-- STEP 2 PLAN -->
+<section class="step-panel" id="panel-1">
+  <div class="step-hero">
+    <div class="step-hero-num">Step 2 of 5</div>
+    <h2>Plan &mdash; Build Your Panel Discussion</h2>
+    <p>Now that you have your ideas, it&rsquo;s time to organize them. A good plan means your panel discussion will be clear, focused, and interesting to your audience.</p>
+  </div>
+
+  <div class="info-box">
+    <div class="info-label">&#128203; The Parts of a Panel Discussion</div>
+    <p>Every panel discussion has three main parts: <strong>(1) an Introduction</strong> that hooks the audience and introduces the topic and panel members, <strong>(2) the Main Discussion</strong> where each member shares ideas and responds to others, and <strong>(3) a Conclusion</strong> that wraps up the key points and leaves the audience with something to think about.</p>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="card-icon">&#127918;</span>Plan Your Introduction</div>
+    <p>The introduction is the first thing your audience hears. It needs to:</p>
+    <ul>
+      <li>Grab the audience&rsquo;s attention (a question, a surprising fact, or a short example works great)</li>
+      <li>Tell the audience what your topic is</li>
+      <li>Introduce each panel member and what they will focus on</li>
+    </ul>
+    <br>
+    <label class="write-label">Write your group&rsquo;s opening &ldquo;hook&rdquo; &mdash; how will you start?</label>
+    <textarea id="p2_hook" rows="3" placeholder='Example: "Have you ever felt like no matter how hard you tried, the odds were stacked against you? Today we are going to talk about..."' oninput="updateChar(this,'cnt2a')"></textarea>
+    <div class="char-count" id="cnt2a">0 words</div>
+    <label class="write-label">Write how you will introduce the topic (1&ndash;2 sentences):</label>
+    <textarea id="p2_topicintro" rows="2" placeholder="Our panel will discuss..." oninput="updateChar(this,'cnt2b')"></textarea>
+    <div class="char-count" id="cnt2b">0 words</div>
+    <label class="write-label">List each panel member&rsquo;s name and their focus area:</label>
+    <textarea id="p2_members" rows="4" placeholder="Panel Member 1: [Name] will talk about...&#10;Panel Member 2: [Name] will talk about...&#10;Panel Member 3: [Name] will talk about..." oninput="updateChar(this,'cnt2c')"></textarea>
+    <div class="char-count" id="cnt2c">0 words</div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="card-icon">&#128483;&#65039;</span>Plan Your Main Points</div>
+    <p>Each panel member needs to prepare <strong>at least 3 things</strong> to say. You don&rsquo;t need full sentences yet &mdash; notes are fine!</p>
+    <br>
+    <div class="example-box">
+      <div class="example-label">Example Panel Member Plan</div>
+      <p>Focus: Using education as a coping strategy<br>
+      Point 1: Katherine Johnson used her math skills to prove her worth<br>
+      Point 2: Gambian girls in the sources used school to create opportunities<br>
+      Point 3: Education gives you confidence to face hard situations<br>
+      Text evidence: In Hidden Figures, Katherine double-checked every calculation herself...</p>
+    </div>
+    <br>
+    <label class="write-label">My Name &amp; Focus Area:</label>
+    <textarea id="p2_me_focus" rows="2" placeholder="My name is ___ and I will focus on..." oninput="updateChar(this,'cnt2d')"></textarea>
+    <div class="char-count" id="cnt2d">0 words</div>
+    <label class="write-label">My 3 Main Points:</label>
+    <textarea id="p2_me_points" rows="5" placeholder="Point 1: ...&#10;Point 2: ...&#10;Point 3: ..." oninput="updateChar(this,'cnt2e')"></textarea>
+    <div class="char-count" id="cnt2e">0 words</div>
+    <label class="write-label">Text Evidence &mdash; quote or example from Hidden Figures or the Gambian Women sources:</label>
+    <textarea id="p2_me_evidence" rows="3" placeholder="In Hidden Figures / In the Gambian Women sources, it says or shows..." oninput="updateChar(this,'cnt2f')"></textarea>
+    <div class="char-count" id="cnt2f">0 words</div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="card-icon">&#128260;</span>Plan Your Discussion Questions</div>
+    <p>In a panel discussion, panelists respond to each other &mdash; they don&rsquo;t just take turns talking. A <strong>moderator</strong> (the person who leads the discussion) asks questions to keep the conversation going.</p>
+    <br>
+    <div class="starters-label">Question Starters:</div>
+    <span class="starter-chip" onclick="addStarter('p2_questions','How does this coping strategy connect to what [Panel Member] said?\n')">How does this connect to what __ said?</span>
+    <span class="starter-chip" onclick="addStarter('p2_questions','Can you give an example from the text that supports this?\n')">Give a text example?</span>
+    <span class="starter-chip" onclick="addStarter('p2_questions','Do you think this strategy would work for everyone? Why or why not?\n')">Would this work for everyone?</span>
+    <span class="starter-chip" onclick="addStarter('p2_questions','What is the most important idea the audience should take away?\n')">Most important takeaway?</span>
+    <br><br>
+    <label class="write-label">Write 3 discussion questions your moderator can ask:</label>
+    <textarea id="p2_questions" rows="5" placeholder="Question 1: ...&#10;Question 2: ...&#10;Question 3: ..." oninput="updateChar(this,'cnt2g')"></textarea>
+    <div class="char-count" id="cnt2g">0 words</div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="card-icon">&#127937;</span>Plan Your Conclusion</div>
+    <p>At the end, someone wraps up the whole discussion. A strong conclusion:</p>
+    <ul>
+      <li>Restates the 2&ndash;3 biggest ideas from your discussion</li>
+      <li>Ends with a powerful closing thought &mdash; maybe a challenge to the audience or an inspiring final idea</li>
+    </ul>
+    <br>
+    <label class="write-label">Draft your conclusion notes:</label>
+    <textarea id="p2_conclusion" rows="4" placeholder="Today our panel talked about...&#10;The most important ideas were...&#10;We want the audience to think about..." oninput="updateChar(this,'cnt2h')"></textarea>
+    <div class="char-count" id="cnt2h">0 words</div>
+  </div>
+
+  <div class="success-banner" id="success-1">
+    <div class="success-icon">&#9989;</div>
+    <div class="success-text"><h3>Planning Complete!</h3><p>Solid plan. Move on to Step 3 &mdash; Drafting your speaking notes.</p></div>
+  </div>
+  <div class="btn-row">
+    <button class="btn btn-primary" onclick="markDone(1)">Mark Step 2 Complete &#10003;</button>
+  </div>
+</section>
+
+<!-- STEP 3 DRAFT -->
+<section class="step-panel" id="panel-2">
+  <div class="step-hero">
+    <div class="step-hero-num">Step 3 of 5</div>
+    <h2>Draft &mdash; Write Your Speaking Notes</h2>
+    <p>Now you&rsquo;ll turn your plan into actual speaking notes. You&rsquo;re not writing a speech to memorize &mdash; you&rsquo;re writing notes that help you speak confidently and naturally.</p>
+  </div>
+
+  <div class="info-box">
+    <div class="info-label">&#128221; Drafting for a Panel Discussion</div>
+    <p>When you draft for a panel discussion, use <strong>formal language</strong> &mdash; speak like you would in class, not like a text message. Use <strong>precise words</strong> instead of vague ones. Your notes should be detailed enough that you can speak for 2&ndash;3 minutes on your topic.</p>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="card-icon">&#128101;</span>Formal vs. Informal Language</div>
+    <p>Check out the difference:</p>
+    <div class="example-box-warn" style="margin-top:10px;">
+      <div class="example-label">&#10060; Informal (avoid this)</div>
+      <p>&ldquo;So like, the woman in the book was going through a lot of stuff and she kind of dealt with it okay I guess.&rdquo;</p>
+    </div>
+    <div class="example-box" style="margin-top:8px;">
+      <div class="example-label">&#10004; Formal (use this)</div>
+      <p>&ldquo;The woman in <em>Hidden Figures</em> faced significant discrimination. She responded by demonstrating her exceptional skills and determination every single day.&rdquo;</p>
+    </div>
+    <div class="tips-grid" style="margin-top:14px;">
+      <div class="tip-card"><strong>Instead of &ldquo;good&rdquo;</strong>try: effective, powerful, successful, valuable</div>
+      <div class="tip-card"><strong>Instead of &ldquo;hard&rdquo;</strong>try: challenging, difficult, demanding, burdensome</div>
+      <div class="tip-card"><strong>Instead of &ldquo;stuff&rdquo;</strong>try: challenges, obstacles, circumstances, situations</div>
+      <div class="tip-card"><strong>Instead of &ldquo;got through it&rdquo;</strong>try: persevered, overcame, demonstrated resilience</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="card-icon">&#128196;</span>Draft Your Speaking Notes</div>
+    <p>Write your speaking notes for your part of the panel. Include:</p>
+    <ul>
+      <li>A clear <strong>opening sentence</strong> that states your focus area</li>
+      <li>Your <strong>3 main points</strong>, each explained in 2&ndash;3 sentences</li>
+      <li>At least one <strong>text reference</strong> (Hidden Figures or Gambian Women sources)</li>
+      <li>A <strong>connecting sentence</strong> that ties your ideas back to the main prompt</li>
+    </ul>
+    <br>
+    <div class="example-box">
+      <div class="example-label">Example Opening Sentences</div>
+      <p>&ldquo;My focus today is on how education can be a powerful tool for coping with life&rsquo;s challenges.&rdquo;<br><br>
+      &ldquo;I will be discussing how community support helped individuals in both of our texts persevere through difficult situations.&rdquo;</p>
+    </div>
+    <br>
+    <div class="starters-label">Speaking Starters &mdash; Tap to add:</div>
+    <span class="starter-chip" onclick="addStarter('p3_draft','My focus today is on ')">My focus today is on...</span>
+    <span class="starter-chip" onclick="addStarter('p3_draft','According to the text, ')">According to the text...</span>
+    <span class="starter-chip" onclick="addStarter('p3_draft','This strategy is effective because ')">This strategy is effective because...</span>
+    <span class="starter-chip" onclick="addStarter('p3_draft','To connect this back to the main question, ')">To connect back to the question...</span>
+    <span class="starter-chip" onclick="addStarter('p3_draft','In conclusion, I believe that ')">In conclusion, I believe...</span>
+    <br><br>
+    <label class="write-label">My Speaking Notes (Draft) &mdash; aim for 3&ndash;5 paragraphs:</label>
+    <textarea id="p3_draft" rows="14" placeholder="Write your full speaking notes here. Use formal language and include text evidence." oninput="updateChar(this,'cnt3a')"></textarea>
+    <div class="char-count" id="cnt3a">0 words</div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="card-icon">&#129309;</span>How to Respond to Panel Members</div>
+    <p>In a panel discussion, you need to be ready to respond when someone else speaks. Here are phrases to use:</p>
+    <div class="tips-grid">
+      <div class="tip-card"><strong>To agree and add on:</strong>&ldquo;I agree with [name]&rsquo;s point, and I would add that...&rdquo;</div>
+      <div class="tip-card"><strong>To respectfully disagree:</strong>&ldquo;That&rsquo;s an interesting perspective. I see it slightly differently because...&rdquo;</div>
+      <div class="tip-card"><strong>To ask a follow-up:</strong>&ldquo;Can you say more about...?&rdquo; or &ldquo;What do you mean by...?&rdquo;</div>
+      <div class="tip-card"><strong>To make a connection:</strong>&ldquo;What [name] said connects to my point about...&rdquo;</div>
+    </div>
+    <br>
+    <label class="write-label">Write 2 response phrases you plan to use during the discussion:</label>
+    <textarea id="p3_responses" rows="3" placeholder="If a panel member says something about [topic], I will respond by saying: '...'" oninput="updateChar(this,'cnt3b')"></textarea>
+    <div class="char-count" id="cnt3b">0 words</div>
+  </div>
+
+  <div class="success-banner" id="success-2">
+    <div class="success-icon">&#9989;</div>
+    <div class="success-text"><h3>Draft Complete!</h3><p>Nice work. Move on to Step 4 &mdash; Revising to make it stronger.</p></div>
+  </div>
+  <div class="btn-row">
+    <button class="btn btn-primary" onclick="markDone(2)">Mark Step 3 Complete &#10003;</button>
+  </div>
+</section>
+
+<!-- STEP 4 REVISE -->
+<section class="step-panel" id="panel-3">
+  <div class="step-hero">
+    <div class="step-hero-num">Step 4 of 5</div>
+    <h2>Revise &mdash; Make Your Draft Stronger</h2>
+    <p>Revising means improving the <em>content and ideas</em> in your draft. Ask yourself: <em>&ldquo;Is this as clear and powerful as it can be?&rdquo;</em> Every great writer revises &mdash; it&rsquo;s a normal and important part of the process.</p>
+  </div>
+
+  <div class="info-box">
+    <div class="info-label">&#128260; Revising vs. Editing</div>
+    <p>When you <strong>revise</strong>, you focus on making your <em>ideas</em> stronger &mdash; adding details, rearranging points, cutting things that don&rsquo;t belong. <strong>Editing</strong> (Step 5) is different &mdash; that&rsquo;s when you fix grammar and spelling. For now, focus only on your ideas.</p>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="card-icon">&#128270;</span>Focus Area 1: Expand Your Ideas</div>
+    <p>Look at your draft. Are any points too short or unclear? A strong panel discussion point has three parts:</p>
+    <ul>
+      <li>The <strong>main idea</strong> stated clearly</li>
+      <li>An <strong>example or evidence</strong> from one of the texts</li>
+      <li>An <strong>explanation</strong> of why this matters or connects to the prompt</li>
+    </ul>
+    <div class="example-box-warn" style="margin-top:12px;">
+      <div class="example-label">Before Revision (Too Short)</div>
+      <p>&ldquo;Katherine Johnson worked hard and things got better.&rdquo;</p>
+    </div>
+    <div class="example-box" style="margin-top:8px;">
+      <div class="example-label">After Revision (Much Stronger)</div>
+      <p>&ldquo;Katherine Johnson&rsquo;s approach to dealing with discrimination was to focus on doing her work with absolute precision. In <em>Hidden Figures</em>, she double-checked NASA&rsquo;s calculations herself, refusing to let unfair treatment stop her from contributing. This shows that one powerful coping strategy is channeling your energy into doing excellent work, rather than being defeated by obstacles.&rdquo;</p>
+    </div>
+    <br>
+    <label class="write-label">Pick one point from your draft and revise it to be more detailed and powerful:</label>
+    <textarea id="p4_expand" rows="6" placeholder="Original point: ...&#10;&#10;Revised point: ..." oninput="updateChar(this,'cnt4a')"></textarea>
+    <div class="char-count" id="cnt4a">0 words</div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="card-icon">&#128279;</span>Focus Area 2: Add Transition Words</div>
+    <p>Transitions connect your ideas and help the audience follow your thinking. Without transitions, your ideas sound like a random list. With transitions, they sound like a real argument.</p>
+    <div class="tips-grid" style="margin-top:12px;">
+      <div class="tip-card"><strong>To add a point:</strong>&ldquo;Furthermore...&rdquo; / &ldquo;In addition to this...&rdquo; / &ldquo;Another key strategy is...&rdquo;</div>
+      <div class="tip-card"><strong>To show a result:</strong>&ldquo;As a result...&rdquo; / &ldquo;This led to...&rdquo; / &ldquo;Because of this...&rdquo;</div>
+      <div class="tip-card"><strong>To reference a text:</strong>&ldquo;This is evident in...&rdquo; / &ldquo;For example, in the text...&rdquo; / &ldquo;The sources show that...&rdquo;</div>
+      <div class="tip-card"><strong>To wrap up a point:</strong>&ldquo;This demonstrates that...&rdquo; / &ldquo;Ultimately...&rdquo; / &ldquo;In other words...&rdquo;</div>
+    </div>
+    <br>
+    <label class="write-label">Find a spot in your draft where you can add a transition. Write the original and improved version:</label>
+    <textarea id="p4_transitions" rows="4" placeholder="Original: '...this helps people. Another thing is...'&#10;Improved: '...this helps people. Furthermore, another essential strategy is...'" oninput="updateChar(this,'cnt4b')"></textarea>
+    <div class="char-count" id="cnt4b">0 words</div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="card-icon">&#128202;</span>Focus Area 3: Check Your Organization</div>
+    <p>Read your draft from beginning to end and check each item below:</p>
+    <ul class="checklist" id="revise-checklist">
+      <li><div class="check-box" onclick="toggleCheck(this)"></div><span>My opening sentence clearly states my focus area.</span></li>
+      <li><div class="check-box" onclick="toggleCheck(this)"></div><span>I have at least 3 main points, each explained clearly.</span></li>
+      <li><div class="check-box" onclick="toggleCheck(this)"></div><span>I include at least one example from Hidden Figures OR the Gambian Women sources.</span></li>
+      <li><div class="check-box" onclick="toggleCheck(this)"></div><span>My ideas are in a logical order &mdash; one point leads naturally to the next.</span></li>
+      <li><div class="check-box" onclick="toggleCheck(this)"></div><span>I end with a sentence that connects my ideas back to the main prompt.</span></li>
+      <li><div class="check-box" onclick="toggleCheck(this)"></div><span>I use formal language throughout &mdash; not too casual or slangy.</span></li>
+    </ul>
+    <br>
+    <label class="write-label">Based on your checklist, what is one change you want to make to your draft?</label>
+    <textarea id="p4_change" rows="3" placeholder="I noticed that... so I'm going to change..." oninput="updateChar(this,'cnt4c')"></textarea>
+    <div class="char-count" id="cnt4c">0 words</div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="card-icon">&#128101;</span>Peer Feedback</div>
+    <p>If time allows, share your draft with one panel member. Ask them:</p>
+    <ul>
+      <li>What is one thing that is really clear and strong in my notes?</li>
+      <li>What is one thing that was confusing or needed more detail?</li>
+      <li>Did I use formal language throughout?</li>
+    </ul>
+    <br>
+    <label class="write-label">Peer feedback I received (or my own notes on what to improve):</label>
+    <textarea id="p4_peer" rows="3" placeholder="My peer / I noticed that..." oninput="updateChar(this,'cnt4d')"></textarea>
+    <div class="char-count" id="cnt4d">0 words</div>
+  </div>
+
+  <div class="success-banner" id="success-3">
+    <div class="success-icon">&#9989;</div>
+    <div class="success-text"><h3>Revision Complete!</h3><p>Your draft is stronger now. On to the final step &mdash; Edit &amp; Present!</p></div>
+  </div>
+  <div class="btn-row">
+    <button class="btn btn-primary" onclick="markDone(3)">Mark Step 4 Complete &#10003;</button>
+  </div>
+</section>
+
+<!-- STEP 5 EDIT & PRESENT -->
+<section class="step-panel" id="panel-4">
+  <div class="step-hero">
+    <div class="step-hero-num">Step 5 of 5</div>
+    <h2>Edit &amp; Present &mdash; Polish and Perform</h2>
+    <p>This is your final step! Fix any last errors in your writing, then get ready to stand up and present your panel discussion with confidence.</p>
+  </div>
+
+  <div class="info-box">
+    <div class="info-label">&#9989; Editing vs. Revising</div>
+    <p>Remember: <strong>Revising</strong> (Step 4) is about making your <em>ideas</em> stronger. <strong>Editing</strong> (this step) is about <em>correctness</em> &mdash; fixing spelling, punctuation, grammar, and word choice so your writing is clean and professional.</p>
+  </div>
+
+  <div class="section-divider"><div class="divider-line"></div><span>Editing Checklist</span><div class="divider-line"></div></div>
+
+  <div class="edit-category">
+    <div class="edit-cat-header"><span class="edit-cat-icon">&#128270;</span><div class="edit-cat-title">Clarity &mdash; Are your sentences easy to understand?</div></div>
+    <div class="edit-cat-body">
+      <p style="font-size:13px;color:var(--muted);margin-bottom:10px;">Read each sentence and ask: &ldquo;If someone heard this for the first time, would they understand it?&rdquo;</p>
+      <ul class="checklist">
+        <li><div class="check-box" onclick="toggleCheck(this)"></div><span>Every sentence has one clear main idea.</span></li>
+        <li><div class="check-box" onclick="toggleCheck(this)"></div><span>I haven&rsquo;t used &ldquo;it,&rdquo; &ldquo;they,&rdquo; or &ldquo;this&rdquo; without being clear about what they refer to.</span></li>
+        <li><div class="check-box" onclick="toggleCheck(this)"></div><span>I haven&rsquo;t written overly long or confusing run-on sentences.</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="edit-category">
+    <div class="edit-cat-header"><span class="edit-cat-icon">&#128172;</span><div class="edit-cat-title">Word Choice &mdash; Are your words precise and formal?</div></div>
+    <div class="edit-cat-body">
+      <p style="font-size:13px;color:var(--muted);margin-bottom:10px;">Replace vague or informal words with more specific, powerful ones.</p>
+      <div class="tips-grid" style="margin-bottom:12px;">
+        <div class="tip-card"><strong>Replace &ldquo;good&rdquo; with:</strong>effective, powerful, successful, valuable</div>
+        <div class="tip-card"><strong>Replace &ldquo;bad&rdquo; with:</strong>harmful, damaging, unjust, difficult</div>
+        <div class="tip-card"><strong>Replace &ldquo;things&rdquo; with:</strong>obstacles, challenges, strategies, opportunities</div>
+        <div class="tip-card"><strong>Replace &ldquo;showed&rdquo; with:</strong>demonstrated, illustrated, revealed, proved</div>
+      </div>
+      <ul class="checklist">
+        <li><div class="check-box" onclick="toggleCheck(this)"></div><span>I replaced vague words like &ldquo;stuff,&rdquo; &ldquo;things,&rdquo; &ldquo;good,&rdquo; and &ldquo;bad&rdquo; with precise words.</span></li>
+        <li><div class="check-box" onclick="toggleCheck(this)"></div><span>My language sounds appropriate for a formal class presentation.</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="edit-category">
+    <div class="edit-cat-header"><span class="edit-cat-icon">&#9881;&#65039;</span><div class="edit-cat-title">Mechanics &mdash; Spelling, Punctuation &amp; Grammar</div></div>
+    <div class="edit-cat-body">
+      <p style="font-size:13px;color:var(--muted);margin-bottom:10px;">Check the technical stuff. Read your work slowly &mdash; even read it backward, sentence by sentence, to catch errors.</p>
+      <ul class="checklist">
+        <li><div class="check-box" onclick="toggleCheck(this)"></div><span>I checked for spelling errors, especially names from the texts.</span></li>
+        <li><div class="check-box" onclick="toggleCheck(this)"></div><span>Every sentence starts with a capital letter and ends with the right punctuation.</span></li>
+        <li><div class="check-box" onclick="toggleCheck(this)"></div><span>I used commas correctly in lists and after transition words.</span></li>
+        <li><div class="check-box" onclick="toggleCheck(this)"></div><span>Book titles are italicized or underlined (e.g., <em>Hidden Figures</em>).</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:20px;">
+    <div class="card-title"><span class="card-icon">&#128221;</span>Final Edited Speaking Notes</div>
+    <p style="margin-bottom:12px;">Write your final, polished speaking notes here. This is the version you&rsquo;ll actually use during your panel discussion.</p>
+    <label class="write-label">My Final Speaking Notes:</label>
+    <textarea id="p5_final" rows="14" placeholder="Write your clean, edited speaking notes here. This is your final version &mdash; make it count!" oninput="updateChar(this,'cnt5a')"></textarea>
+    <div class="char-count" id="cnt5a">0 words</div>
+  </div>
+
+  <div class="section-divider"><div class="divider-line"></div><span>Presentation Tips</span><div class="divider-line"></div></div>
+
+  <div class="card">
+    <div class="card-title"><span class="card-icon">&#127908;</span>Get Ready to Present!</div>
+    <div class="tips-grid">
+      <div class="tip-card"><strong>&#128226; Volume &amp; Pace</strong>Speak loudly enough for the whole audience to hear. Slow down when you say something important &mdash; don&rsquo;t rush.</div>
+      <div class="tip-card"><strong>&#128065;&#65039; Eye Contact</strong>Look up from your notes and make eye contact with the audience. Glance at your notes, but don&rsquo;t read every word.</div>
+      <div class="tip-card"><strong>&#129485; Body Language</strong>Sit up straight. Keep your hands still or use them to emphasize points. Nod when your panel members speak.</div>
+      <div class="tip-card"><strong>&#128083; Active Listening</strong>When others speak, look at them and really listen. Be ready to respond, agree, or add to what they say.</div>
+    </div>
+    <div class="info-box" style="margin-top:16px;">
+      <div class="info-label">&#128161; Pro Tip: Practice Out Loud</div>
+      <p>The best way to prepare is to say your notes out loud at least once before the real thing. Practice in front of a mirror, with a friend, or just by yourself. Your brain and mouth need to practice together!</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="card-icon">&#9997;&#65039;</span>Final Self-Check</div>
+    <ul class="checklist">
+      <li><div class="check-box" onclick="toggleCheck(this)"></div><span>My speaking notes are edited and ready.</span></li>
+      <li><div class="check-box" onclick="toggleCheck(this)"></div><span>I know my 3 main points well enough to explain them without reading word for word.</span></li>
+      <li><div class="check-box" onclick="toggleCheck(this)"></div><span>I have at least one text reference ready to use.</span></li>
+      <li><div class="check-box" onclick="toggleCheck(this)"></div><span>I have 2 response phrases ready to use when panel members speak.</span></li>
+      <li><div class="check-box" onclick="toggleCheck(this)"></div><span>I&rsquo;ve practiced saying my notes out loud at least once.</span></li>
+      <li><div class="check-box" onclick="toggleCheck(this)"></div><span>I&rsquo;m ready to listen actively and respond respectfully during the panel.</span></li>
+    </ul>
+    <br>
+    <label class="write-label">One thing I feel confident about going into the panel discussion:</label>
+    <textarea id="p5_confident" rows="2" placeholder="I feel confident about..." oninput="updateChar(this,'cnt5b')"></textarea>
+    <div class="char-count" id="cnt5b">0 words</div>
+    <label class="write-label">One thing I want to remember during the panel discussion:</label>
+    <textarea id="p5_careful" rows="2" placeholder="I want to remember to..." oninput="updateChar(this,'cnt5c')"></textarea>
+    <div class="char-count" id="cnt5c">0 words</div>
+  </div>
+
+  <div class="success-banner show" id="success-4">
+    <div class="success-icon">&#127775;</div>
+    <div class="success-text"><h3>You&rsquo;re Ready to Present!</h3><p>You&rsquo;ve completed all five steps. Trust your preparation and show what you know.</p></div>
+  </div>
+
+  <div class="btn-row">
+    <button class="btn btn-primary" onclick="markDone(4)">Mark All Steps Complete &#10003;</button>
+  </div>
+</section>
+
+<!-- BOTTOM NAV -->
+<div class="bottom-nav">
+  <div>
+    <div class="nav-step-label" id="navLabel">Step 1 of 5</div>
+    <div class="nav-step-name" id="navName">&#9998; Prewrite</div>
+  </div>
+  <div class="nav-arrows">
+    <button class="nav-btn" id="prevBtn" onclick="prevStep()" disabled>&#9664;</button>
+    <button class="nav-btn next-main" id="nextBtn" onclick="nextStep()">&#9654;</button>
+  </div>
+</div>
+
+<script>
+var currentStep = 0;
+var STEPS = [
+  {label:'Step 1',name:'&#9998; Prewrite'},
+  {label:'Step 2',name:'&#128203; Plan'},
+  {label:'Step 3',name:'&#128221; Draft'},
+  {label:'Step 4',name:'&#128260; Revise'},
+  {label:'Step 5',name:'&#9989; Edit & Present'}
+];
+var TOTAL = 5;
+var stepLabels = ['Prewrite','Plan','Draft','Revise','Edit & Present'];
+
+function goStep(n) {
+  document.querySelectorAll('.step-panel').forEach(function(p){ p.classList.remove('active'); });
+  document.querySelectorAll('.step-btn').forEach(function(b){ b.classList.remove('active'); });
+  document.getElementById('panel-'+n).classList.add('active');
+  document.querySelector('[data-step="'+n+'"]').classList.add('active');
+  currentStep = n;
+  updateNav();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function nextStep(){ if(currentStep < TOTAL-1) goStep(currentStep+1); }
+function prevStep(){ if(currentStep > 0) goStep(currentStep-1); }
+
+function updateNav(){
+  document.getElementById('navLabel').textContent = 'Step '+(currentStep+1)+' of '+TOTAL;
+  document.getElementById('navName').innerHTML = STEPS[currentStep].name;
+  document.getElementById('prevBtn').disabled = currentStep === 0;
+  document.getElementById('nextBtn').disabled = currentStep === TOTAL-1;
+  var pct = Math.round((currentStep+1)/TOTAL*100);
+  document.getElementById('progressFill').style.width = pct+'%';
+  document.getElementById('progressLabel').textContent = 'Step '+(currentStep+1)+' of '+TOTAL+' \u2014 '+stepLabels[currentStep];
+}
+
+function markDone(step){
+  var btn = document.querySelector('[data-step="'+step+'"]');
+  btn.classList.add('done');
+  var banner = document.getElementById('success-'+step);
+  if(banner){ banner.classList.add('show'); }
+  if(step < TOTAL-1){ setTimeout(function(){ nextStep(); }, 900); }
+}
+
+function updateChar(ta, cntId){
+  var val = ta.value.trim();
+  var words = val ? val.split(/\s+/).length : 0;
+  document.getElementById(cntId).textContent = words + (words===1?' word':' words');
+}
+
+function addStarter(textareaId, text){
+  var ta = document.getElementById(textareaId);
+  var cur = ta.value;
+  ta.value = cur + (cur && !cur.endsWith('\n') ? '\n' : '') + text;
+  ta.focus();
+  ta.setSelectionRange(ta.value.length, ta.value.length);
+}
+
+function toggleCheck(el){
+  el.classList.toggle('checked');
+  el.textContent = el.classList.contains('checked') ? '\u2713' : '';
+  var li = el.parentElement;
+  li.classList.toggle('done-item', el.classList.contains('checked'));
+}
+
+function togglePrompt(){
+  var full = document.getElementById('promptFull');
+  var toggle = document.getElementById('promptToggle');
+  full.classList.toggle('open');
+  toggle.textContent = full.classList.contains('open') ? '\u25b2 Hide prompt' : '\u25bc See full prompt';
+}
+
+updateNav();
+</script>
+</body>
+</html>
